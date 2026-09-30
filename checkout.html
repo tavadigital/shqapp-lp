@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Checkout Sistem Hafal Quran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<style>
+:root{
+  color-scheme:light dark;
+  --blue:#1F5C46;
+  --blue-deep:#123326;
+  --blue-tint:#E6EFE8;
+  --navy:#1F5C46;
+  --ink:#23302A;
+  --body:#4F5E54;
+  --muted:#7E8D80;
+  --border:#E7DFCB;
+  --surface:#F7F1E3;
+  --card:#FFFDF7;
+  --page:#FBF7EE;
+  --cta:#E3B94E;
+  --cta-deep:#C79A3E;
+  --cta-ink:#123326;
+  --check:#3E8E5B;
+  --danger:#C2412F;
+  --danger-bg:#FBEDE9;
+  --field:#FFFFFF;
+  --shadow:0 1px 3px rgba(31,92,70,.07);
+  --head:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --text:'Inter',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --blue:#8CC7A8;
+    --blue-deep:#B2DCC4;
+    --blue-tint:#17372B;
+    --navy:#1F5C46;
+    --ink:#F1F0E6;
+    --body:#C3CCBF;
+    --muted:#94A294;
+    --border:#2B4337;
+    --surface:#12261D;
+    --card:#172E24;
+    --page:#0F2019;
+    --cta:#E3B94E;
+    --cta-deep:#C79A3E;
+    --cta-ink:#123326;
+    --check:#6DBE8A;
+    --danger:#FF8A80;
+    --danger-bg:#2E1A17;
+    --field:#12261D;
+    --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--text);font-size:16px;line-height:1.6;
+  color:var(--body);background:var(--page);
+  padding-bottom:96px;
+}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-family:var(--head);color:var(--ink);line-height:1.2;letter-spacing:-0.02em}
+h1{font-size:24px;font-weight:800}
+h2{font-size:19px;font-weight:800}
+h3{font-size:16px;font-weight:700}
+svg{fill:none;stroke:none}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ---------- topbar ---------- */
+.topbar{border-bottom:1px solid var(--border);background:var(--card);padding:16px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:800;color:var(--ink);font-size:16px;text-decoration:none;border-radius:8px}
+.brand:hover{color:var(--blue-deep)}
+.brand:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.brand .dot{width:28px;height:28px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex:0 0 28px}
+.brand .dot svg{width:28px;height:28px}
+.secure{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.secure svg{width:15px;height:15px;flex:0 0 15px}
+.topbar .wrap{display:flex;align-items:center}
+
+/* ---------- layout ---------- */
+main{padding:28px 0 40px}
+.intro{margin-bottom:24px}
+.intro p{margin-top:8px;font-size:15px;color:var(--body)}
+.cols{display:grid;gap:20px}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.card + .card{margin-top:20px}
+.card h2{margin-bottom:4px}
+.card .sub{font-size:14px;color:var(--muted);margin-bottom:18px}
+
+/* ---------- summary ---------- */
+.sum-item{display:flex;gap:14px;align-items:flex-start}
+.sum-thumb{flex:0 0 76px;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--surface);cursor:zoom-in;padding:0;display:block}
+.sum-thumb img{width:100%;aspect-ratio:1/1;object-fit:cover;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.sum-name{font-family:var(--head);font-weight:700;color:var(--ink);font-size:16px;line-height:1.3}
+.sum-meta{font-size:13px;color:var(--muted);margin-top:4px}
+.zoomhint{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--blue);margin-top:8px;background:none;border:none;cursor:pointer;font-family:var(--text);padding:0}
+.zoomhint svg{width:13px;height:13px}
+
+.incl{list-style:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.incl li{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin-bottom:9px}
+.incl li:last-child{margin-bottom:0}
+.incl svg{flex:0 0 17px;width:17px;height:17px;margin-top:2px}
+
+.rows{margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.row{display:flex;justify-content:space-between;gap:16px;font-size:14px;margin-bottom:8px}
+.row:last-child{margin-bottom:0}
+.row .lbl{color:var(--muted)}
+.row .val{color:var(--ink);font-variant-numeric:tabular-nums}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.total .lbl{font-family:var(--head);font-weight:700;color:var(--ink);font-size:15px}
+.total .val{font-family:var(--head);font-weight:800;color:var(--ink);font-size:26px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.once{font-size:13px;color:var(--muted);margin-top:6px;text-align:right}
+
+/* ---------- form ---------- */
+.field{margin-bottom:18px}
+.field:last-of-type{margin-bottom:0}
+label{display:block;font-family:var(--head);font-weight:700;font-size:14px;color:var(--ink);margin-bottom:5px}
+.req{color:var(--danger);margin-left:2px}
+.hint{font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.5}
+input[type=text],input[type=tel],input[type=email]{
+  width:100%;height:50px;padding:0 14px;
+  font-family:var(--text);font-size:16px;color:var(--ink);
+  background:var(--field);border:1px solid var(--border);border-radius:10px;
+  transition:border-color .15s,box-shadow .15s;
+}
+input::placeholder{color:var(--muted);opacity:1}
+input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+input:focus-visible{outline:none}
+input[aria-invalid=true]{border-color:var(--danger);background:var(--danger-bg)}
+
+.phonewrap{display:flex;align-items:stretch}
+.prefix{
+  display:flex;align-items:center;padding:0 12px;
+  background:var(--surface);border:1px solid var(--border);border-right:none;
+  border-radius:10px 0 0 10px;
+  font-family:var(--head);font-weight:700;font-size:15px;color:var(--ink);
+  white-space:nowrap;
+}
+.phonewrap input{border-radius:0 10px 10px 0}
+.phonewrap:focus-within .prefix{border-color:var(--blue)}
+
+.err{display:none;align-items:center;gap:6px;font-size:13px;color:var(--danger);margin-top:6px}
+.err.on{display:flex}
+.err svg{width:14px;height:14px;flex:0 0 14px}
+
+/* ---------- payment ---------- */
+.pay{margin-top:8px}
+.payopt{
+  display:flex;align-items:center;gap:12px;
+  border:1px solid var(--border);border-radius:10px;padding:13px 14px;margin-bottom:10px;
+  cursor:pointer;background:var(--field);transition:border-color .15s,background .15s;
+}
+.payopt:last-child{margin-bottom:0}
+.payopt:hover{border-color:var(--blue)}
+.payopt input{width:18px;height:18px;flex:0 0 18px;accent-color:var(--blue);margin:0}
+.payopt img{height:22px;width:auto;flex:0 0 auto}
+.payopt span{font-size:15px;color:var(--ink)}
+.payopt.sel{border-color:var(--blue);background:var(--blue-tint)}
+.payopt.locked{cursor:default}
+.payopt.locked:hover{border-color:var(--blue)}
+.payopt{flex-wrap:wrap}
+.paynote{flex-basis:100%;font-size:12px;color:var(--muted);padding-left:30px}
+.payopt.locked .paynote{padding-left:0}
+.payinfo{display:flex;gap:10px;align-items:flex-start;background:var(--blue-tint);border-radius:10px;padding:13px 14px;font-size:14px;color:var(--ink)}
+.payinfo svg{flex:0 0 17px;width:17px;height:17px;margin-top:2px}
+
+/* ---------- alert ---------- */
+.alert{
+  display:none;gap:10px;align-items:flex-start;
+  background:var(--danger-bg);border:1px solid var(--danger);border-radius:10px;
+  padding:13px 14px;margin-bottom:18px;font-size:14px;color:var(--danger);
+}
+.alert.on{display:flex}
+.alert svg{flex:0 0 17px;width:17px;height:17px;margin-top:2px}
+.alert strong{display:block;font-family:var(--head);margin-bottom:2px}
+
+/* ---------- notice ---------- */
+.notice{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:color-mix(in srgb,var(--cta) 14%,var(--card));border:1px solid color-mix(in srgb,var(--cta) 45%,transparent);border-radius:10px;padding:13px 14px;font-size:14px;line-height:1.55;color:var(--ink)}
+.notice svg{flex:0 0 17px;width:17px;height:17px;margin-top:2px;color:var(--cta-deep)}
+.notice + .btn{margin-top:14px}
+
+/* ---------- submit ---------- */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;height:56px;margin-top:22px;
+  background:var(--cta);color:var(--cta-ink);
+  font-family:var(--head);font-size:17px;font-weight:700;
+  border:none;border-radius:10px;cursor:pointer;
+  box-shadow:0 4px 14px color-mix(in srgb,var(--cta) 35%,transparent);
+  transition:background .2s,transform .2s var(--ease);
+}
+.btn:hover:not(:disabled){background:var(--cta-deep)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.spinner{width:18px;height:18px;border:2px solid color-mix(in srgb,var(--cta-ink) 45%,transparent);border-top-color:var(--cta-ink);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn.busy .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.trust{list-style:none;margin-top:16px}
+.trust li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--muted);margin-bottom:8px}
+.trust li:last-child{margin-bottom:0}
+.trust svg{flex:0 0 16px;width:16px;height:16px;margin-top:1px}
+
+footer{padding:28px 0 8px;text-align:center}
+footer p{font-size:13px;color:var(--muted)}
+
+/* ---------- lightbox ---------- */
+.lb{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(6,10,18,.9);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.lb.on{display:flex}
+.lb-inner{position:relative;max-width:900px;width:100%}
+.lb img{
+  width:100%;height:auto;max-height:82vh;object-fit:contain;border-radius:12px;
+  -webkit-user-select:none;user-select:none;-webkit-user-drag:none;pointer-events:none;
+}
+.lb-close{
+  position:absolute;top:-14px;right:-14px;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--card);border:1px solid var(--border);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.lb-close svg{width:18px;height:18px}
+@media (max-width:600px){
+  .lb-close{top:-52px;right:0}
+}
+
+@media (min-width:900px){
+  body{padding-bottom:40px}
+  h1{font-size:30px}
+  main{padding:40px 0 56px}
+  .cols{grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+  .col-sum{position:sticky;top:28px;order:2}
+  .col-form{order:1}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+  .row .val.disc{color:var(--check);font-weight:600}
+  .row .val s{color:var(--muted)}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="dot" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#1F5C46"/><path d="M32 80 L68 51 M68 80 L32 51" stroke="#C79A3E" stroke-width="7.5" stroke-linecap="round" fill="none"/><path d="M15 37 L50 49 L85 37 L85 22 L50 34 L15 22 Z" fill="#F7F1E3" stroke="#F7F1E3" stroke-width="2" stroke-linejoin="round"/><path d="M50 34.5 V48.5" stroke="#1F5C46" stroke-width="2.5" stroke-linecap="round"/><path d="M22 30.5 L43 37.5 M57 37.5 L78 30.5" stroke="#C79A3E" stroke-width="1.6" stroke-linecap="round" opacity=".55"/></svg>
+      </span>
+      Sistem Hafal Quran
+    </a>
+    <div class="secure">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.6-2.4 6.6-6 8.2-3.6-1.6-6-4.6-6-8.2V4.7l6-2.2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.4 10.1l1.9 1.9 3.4-3.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Pembayaran aman
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="intro">
+      <h1>Selesaikan pesanan kamu</h1>
+      <p>Isi data di bawah, lalu selesaikan pembayaran. Setelah pembayaran terkonfirmasi, kamu diarahkan ke halaman sukses Sistem Hafal Quran, dan Panduan Akses dikirim ke email kamu.</p>
+    </div>
+
+    <div class="cols">
+
+      <!-- ============ RINGKASAN ============ -->
+      <div class="col-sum">
+        <section class="card" aria-labelledby="sum-title">
+          <h2 id="sum-title">Yang kamu beli</h2>
+          <p class="sub">Sekali bayar, akses selamanya</p>
+
+          <div class="sum-item">
+            <button type="button" class="sum-thumb" id="zoomBtn" aria-label="Perbesar gambar produk">
+              <img id="thumbImg"
+                   src="img/hero-mockup.webp"
+                   alt="Tampilan aplikasi Sistem Hafal Quran" draggable="false">
+            </button>
+            <div>
+              <div class="sum-name" id="prodName">Sistem Hafal Quran</div>
+              <div class="sum-meta">Akses penuh selamanya, semua fitur terbuka</div>
+              <button type="button" class="zoomhint" id="zoomLink">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.4 10.4L14 14M7 5.2v3.6M5.2 7h3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                Lihat tampilan aplikasi
+              </button>
+            </div>
+          </div>
+
+          <ul class="incl">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--check)"/><path d="M5.8 10.2l2.7 2.7 5.7-5.8" stroke="var(--card)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Rencana hafalan 30 juz, porsi harian sudah disiapkan</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--check)"/><path d="M5.8 10.2l2.7 2.7 5.7-5.8" stroke="var(--card)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Murattal 13 qari, bisa diulang per ayat dan disimpan offline</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--check)"/><path d="M5.8 10.2l2.7 2.7 5.7-5.8" stroke="var(--card)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Sesi Terpandu 4 langkah Metode SSI bertimer</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--check)"/><path d="M5.8 10.2l2.7 2.7 5.7-5.8" stroke="var(--card)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Jam Retensi: jadwal muraja'ah otomatis sebelum hafalan lepas</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--check)"/><path d="M5.8 10.2l2.7 2.7 5.7-5.8" stroke="var(--card)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Teks Arab, latin, dan terjemah Kemenag, plus buku metode lengkap</li>
+          </ul>
+
+          <div class="rows" id="rows">
+            <div class="row"><span class="lbl">Harga normal</span><span class="val"><s>Rp497.000</s></span></div>
+            <div class="row"><span class="lbl">Potongan perkenalan</span><span class="val disc">−Rp370.000</span></div>
+            <div class="row"><span class="lbl">Harga produk</span><span class="val" id="rowPrice">Rp127.000</span></div>
+          </div>
+
+          <div class="total">
+            <span class="lbl">Total bayar</span>
+            <span class="val" id="totalPrice">Rp127.000</span>
+          </div>
+          <p class="once">Sekali bayar, bukan langganan</p>
+        </section>
+      </div>
+
+      <!-- ============ FORM ============ -->
+      <div class="col-form">
+        <section class="card" aria-labelledby="form-title">
+          <h2 id="form-title">Data kamu</h2>
+          <p class="sub">Dipakai untuk mengirim Panduan Akses dan konfirmasi pesanan.</p>
+
+          <div class="alert" id="alertBox" role="alert" tabindex="-1">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 5.8v4.8M10 13.6v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <div><strong id="alertTitle">Ada yang belum diisi</strong><span id="alertMsg">Cek lagi kolom yang ditandai merah di bawah.</span></div>
+          </div>
+
+          <form id="checkoutForm" novalidate>
+
+            <div class="field">
+              <label for="customerName">Nama lengkap<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="customerName" name="customerName" autocomplete="name"
+                     placeholder="Contoh: Bayu Pratama" aria-required="true"
+                     aria-describedby="errName">
+              <p class="err" id="errName" role="alert">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6v4M8 10.8v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span></span>
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="customerPhone">Nomor WhatsApp<span class="req" aria-hidden="true">*</span></label>
+              <p class="hint" id="phoneHint">Kami kirim konfirmasi pesanan ke nomor ini.</p>
+              <div class="phonewrap">
+                <span class="prefix" aria-hidden="true">+62</span>
+                <input type="tel" id="customerPhone" name="customerPhone" inputmode="numeric"
+                       autocomplete="tel-national" placeholder="81234567890" aria-required="true"
+                       aria-describedby="phoneHint errPhone" maxlength="15">
+              </div>
+              <p class="err" id="errPhone" role="alert">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6v4M8 10.8v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span></span>
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="customerEmail">Email<span class="req" aria-hidden="true">*</span></label>
+              <p class="hint" id="emailHint">Penting: Panduan Akses dan kode masuk dikirim ke email ini. Pakai email yang kamu buka tiap hari, dan pastikan gak ada salah ketik.</p>
+              <input type="email" id="customerEmail" name="customerEmail" autocomplete="email"
+                     placeholder="nama@email.com" aria-required="true"
+                     aria-describedby="emailHint errEmail">
+              <p class="err" id="errEmail" role="alert">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6v4M8 10.8v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span></span>
+              </p>
+            </div>
+
+            <div class="field" id="payField">
+              <label id="payLabel" for="payGroup">Metode pembayaran</label>
+              <div class="pay" id="payGroup" role="radiogroup" aria-labelledby="payLabel">
+                <div class="payinfo" id="payInfo">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.3v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span>Metode pembayaran dipilih di halaman berikutnya. Tersedia QRIS, transfer bank, dan e-wallet.</span>
+                </div>
+              </div>
+              <p class="err" id="errPay" role="alert">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6v4M8 10.8v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span></span>
+              </p>
+            </div>
+
+            <div class="notice" role="note">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5M10 6.3v.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <span>Panduan Akses produk digital ini akan langsung dikirim ke email kamu setelah pembayaran. Harap lakukan pembayaran sesuai nominal yang tertera.</span>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+              <span class="spinner" aria-hidden="true"></span>
+              <span id="submitLabel">Lanjut ke Pembayaran</span>
+            </button>
+
+            <ul class="trust">
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.6-2.4 6.6-6 8.2-3.6-1.6-6-4.6-6-8.2V4.7l6-2.2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg> Pembayaran diproses lewat gateway resmi, data kartu dan rekening tidak disimpan di halaman ini.</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3.5" y="8.5" width="13" height="8.5" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M6.8 8.5V6.3a3.2 3.2 0 016.4 0v2.2" stroke="currentColor" stroke-width="1.4"/></svg> Dibuka lewat browser di HP atau laptop, gak perlu download dari Play Store.</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="7" r="3.2" stroke="currentColor" stroke-width="1.4"/><path d="M4 17c.8-3.2 3.2-5 6-5s5.2 1.8 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Tanpa bikin akun, tanpa password. Cukup satu kode akses.</li>
+              <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 5.8V10l2.8 1.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Sekali bayar, akses selamanya, tanpa langganan bulanan.</li>
+            </ul>
+
+          </form>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Sistem Hafal Quran, aplikasi hafalan Al-Quran dengan Metode SSI untuk orang dewasa.</p>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Tampilan aplikasi Sistem Hafal Quran">
+  <div class="lb-inner">
+    <button type="button" class="lb-close" id="lbClose" aria-label="Tutup gambar">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <img id="lbImg"
+         src="img/hero-mockup.webp"
+         alt="Tampilan aplikasi Sistem Hafal Quran" draggable="false">
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var FALLBACK_PRICE = 127000;
+  /* Opsional. Biarkan kosong: varian dideteksi otomatis dari store Scalev.
+     Isi hanya kalau kamu mau mengunci checkout ini ke satu varian tertentu. */
+  var TARGET_VARIANT_UNIQUE_ID = "";
+  var PRODUCT_NAME_HINT = "sistem hafal quran";
+  var POST_PAYMENT_REDIRECT_URL = "https://shqapp.netlify.app/payment/success";
+  var PRODUCT_FALLBACK_NAME = "Sistem Hafal Quran";
+  var LIST_PRICE = 497000;
+
+  var state = {
+    item: null,          // { type, variantUniqueId | bundlePriceOptionUniqueId }
+    price: FALLBACK_PRICE,
+    paymentMethod: null,
+    afterCheckout: { type: "success_page" },
+    submitting: false
+  };
+
+  var el = {
+    form: document.getElementById("checkoutForm"),
+    name: document.getElementById("customerName"),
+    phone: document.getElementById("customerPhone"),
+    email: document.getElementById("customerEmail"),
+    payGroup: document.getElementById("payGroup"),
+    payInfo: document.getElementById("payInfo"),
+    payField: document.getElementById("payField"),
+    alertBox: document.getElementById("alertBox"),
+    alertTitle: document.getElementById("alertTitle"),
+    alertMsg: document.getElementById("alertMsg"),
+    submitBtn: document.getElementById("submitBtn"),
+    submitLabel: document.getElementById("submitLabel"),
+    rowPrice: document.getElementById("rowPrice"),
+    totalPrice: document.getElementById("totalPrice"),
+    rows: document.getElementById("rows"),
+    prodName: document.getElementById("prodName")
+  };
+
+  /* ---------------- money ---------------- */
+
+  function rupiah(n) {
+    var v = Number(n);
+    if (!isFinite(v)) v = 0;
+    return "Rp" + Math.round(v).toLocaleString("id-ID");
+  }
+
+  function renderTotals(summary) {
+    var extra = [];
+    var total = state.price;
+
+    if (summary) {
+      if (Number(summary.productPrice) > 0) state.price = Number(summary.productPrice);
+      if (Number(summary.otherIncome) > 0) {
+        extra.push([summary.otherIncomeName || "Biaya lainnya", Number(summary.otherIncome)]);
+      }
+      if (Number(summary.serviceFee) > 0) {
+        extra.push(["Biaya layanan", Number(summary.serviceFee)]);
+      }
+      total = Number(summary.grossRevenue) > 0 ? Number(summary.grossRevenue) : state.price;
+    }
+
+    var html = "";
+    if (LIST_PRICE > state.price) {
+      html += '<div class="row"><span class="lbl">Harga normal</span><span class="val"><s>' + rupiah(LIST_PRICE) + "</s></span></div>";
+      html += '<div class="row"><span class="lbl">Potongan perkenalan</span><span class="val disc">\u2212' + rupiah(LIST_PRICE - state.price) + "</span></div>";
+    }
+    html += '<div class="row"><span class="lbl">Harga produk</span><span class="val">' + rupiah(state.price) + "</span></div>";
+    extra.forEach(function (r) {
+      html += '<div class="row"><span class="lbl">' + escapeHtml(r[0]) + '</span><span class="val">' + rupiah(r[1]) + "</span></div>";
+    });
+    el.rows.innerHTML = html;
+    el.totalPrice.textContent = rupiah(total);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* ---------------- phone ---------------- */
+  /* Terima +628..., 628..., 08..., 8... lalu normalisasi ke 08... untuk Scalev */
+
+  function coreDigits(raw) {
+    var d = String(raw || "").replace(/\D/g, "");
+    if (d.indexOf("62") === 0) d = d.slice(2);
+    d = d.replace(/^0+/, "");
+    return d;
+  }
+
+  function phoneForSubmit(raw) {
+    var core = coreDigits(raw);
+    return core ? "0" + core : "";
+  }
+
+  function validPhone(raw) {
+    var core = coreDigits(raw);
+    return core.charAt(0) === "8" && core.length >= 9 && core.length <= 12;
+  }
+
+  el.phone.addEventListener("input", function () {
+    var pos = el.phone.selectionStart;
+    var before = el.phone.value;
+    var next = coreDigits(before);
+    if (next !== before) {
+      el.phone.value = next;
+      var diff = before.length - next.length;
+      try { el.phone.setSelectionRange(Math.max(0, pos - diff), Math.max(0, pos - diff)); } catch (e) {}
+    }
+    clearError(el.phone, "errPhone");
+  });
+
+  el.phone.addEventListener("blur", function () {
+    el.phone.value = coreDigits(el.phone.value);
+  });
+
+  /* ---------------- validation ---------------- */
+
+  function setError(input, errId, message) {
+    var box = document.getElementById(errId);
+    if (box) {
+      box.querySelector("span").textContent = message;
+      box.classList.add("on");
+    }
+    if (input) input.setAttribute("aria-invalid", "true");
+  }
+
+  function clearError(input, errId) {
+    var box = document.getElementById(errId);
+    if (box) box.classList.remove("on");
+    if (input) input.removeAttribute("aria-invalid");
+  }
+
+  [["customerName", "errName"], ["customerEmail", "errEmail"]].forEach(function (pair) {
+    var input = document.getElementById(pair[0]);
+    input.addEventListener("input", function () { clearError(input, pair[1]); });
+  });
+
+  function validEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || "").trim());
+  }
+
+  function validate() {
+    var firstBad = null;
+
+    clearError(el.name, "errName");
+    clearError(el.phone, "errPhone");
+    clearError(el.email, "errEmail");
+    clearError(null, "errPay");
+
+    if (el.name.value.trim().length < 2) {
+      setError(el.name, "errName", "Nama lengkap wajib diisi.");
+      firstBad = firstBad || el.name;
+    }
+
+    if (!coreDigits(el.phone.value)) {
+      setError(el.phone, "errPhone", "Nomor WhatsApp wajib diisi.");
+      firstBad = firstBad || el.phone;
+    } else if (!validPhone(el.phone.value)) {
+      setError(el.phone, "errPhone", "Format nomor belum benar. Contoh: 81234567890.");
+      firstBad = firstBad || el.phone;
+    }
+
+    if (!el.email.value.trim()) {
+      setError(el.email, "errEmail", "Email wajib diisi. Panduan Akses dikirim ke sini.");
+      firstBad = firstBad || el.email;
+    } else if (!validEmail(el.email.value)) {
+      setError(el.email, "errEmail", "Format email belum benar. Contoh: nama@email.com.");
+      firstBad = firstBad || el.email;
+    }
+
+    if (!state.paymentMethod) {
+      setError(null, "errPay", "Pilih salah satu metode pembayaran.");
+      firstBad = firstBad || el.payField;
+    }
+
+    return firstBad;
+  }
+
+  function showAlert(title, msg) {
+    el.alertTitle.textContent = title;
+    el.alertMsg.textContent = msg;
+    el.alertBox.classList.add("on");
+  }
+
+  function hideAlert() {
+    el.alertBox.classList.remove("on");
+  }
+
+  function scrollToTopOfForm(focusTarget) {
+    var top = el.alertBox.getBoundingClientRect().top + window.pageYOffset - 24;
+    try {
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    } catch (e) {
+      window.scrollTo(0, Math.max(0, top));
+    }
+    window.setTimeout(function () {
+      if (focusTarget && typeof focusTarget.focus === "function") {
+        focusTarget.focus({ preventScroll: true });
+      }
+    }, 350);
+  }
+
+  /* ---------------- runtime bootstrap ---------------- */
+
+  function pickItem(store) {
+    if (!store) return null;
+    var products = store.products || [];
+
+    function take(product, variant) {
+      state.price = Number(variant.price) || FALLBACK_PRICE;
+      if (product.name) el.prodName.textContent = product.name;
+      return { type: "product", variantUniqueId: variant.uniqueId, quantity: 1 };
+    }
+
+    /* 1. Varian yang dikunci manual, kalau TARGET_VARIANT_UNIQUE_ID diisi. */
+    if (TARGET_VARIANT_UNIQUE_ID) {
+      for (var p = 0; p < products.length; p++) {
+        var pv = products[p].variants || [];
+        for (var q = 0; q < pv.length; q++) {
+          if (pv[q] && pv[q].uniqueId === TARGET_VARIANT_UNIQUE_ID) return take(products[p], pv[q]);
+        }
+      }
+    }
+
+    /* 2. Deteksi otomatis: produk yang namanya mengandung PRODUCT_NAME_HINT. */
+    for (var n = 0; n < products.length; n++) {
+      var nm = String(products[n].name || "").toLowerCase();
+      if (PRODUCT_NAME_HINT && nm.indexOf(PRODUCT_NAME_HINT) !== -1) {
+        var nv = products[n].variants || [];
+        for (var r = 0; r < nv.length; r++) {
+          if (nv[r] && nv[r].uniqueId) return take(products[n], nv[r]);
+        }
+      }
+    }
+
+    /* 3. Cadangan terakhir: varian pertama yang tersedia di store. */
+    for (var i = 0; i < products.length; i++) {
+      var variants = products[i].variants || [];
+      for (var j = 0; j < variants.length; j++) {
+        if (variants[j] && variants[j].uniqueId) return take(products[i], variants[j]);
+      }
+    }
+    var bundles = store.bundlePriceOptions || [];
+    if (bundles.length && bundles[0].uniqueId) {
+      state.price = Number(bundles[0].price) || FALLBACK_PRICE;
+      if (bundles[0].name) el.prodName.textContent = bundles[0].name;
+      return { type: "bundle", bundlePriceOptionUniqueId: bundles[0].uniqueId, quantity: 1 };
+    }
+    return null;
+  }
+
+  var DEFERRED_METHODS = ["payment_link", "invoice"];
+
+  function isDeferred(value) {
+    return DEFERRED_METHODS.indexOf(String(value || "").toLowerCase()) !== -1;
+  }
+
+  function setPayInfo(text) {
+    var span = el.payInfo.querySelector("span");
+    if (span) span.textContent = text;
+  }
+
+  function renderPayment(options) {
+    var list = (options || []).filter(function (o) { return o && o.value; });
+
+    /* Runtime belum siap atau store belum kirim metode: pakai PayLink. */
+    if (list.length === 0) {
+      state.paymentMethod = "payment_link";
+      setPayInfo("Metode pembayaran dipilih di halaman berikutnya. Tersedia QRIS, transfer bank, dan e-wallet.");
+      return;
+    }
+
+    /* Satu metode: kunci pilihan, tapi sebutkan metodenya dengan jujur. */
+    if (list.length === 1) {
+      var only = list[0];
+      state.paymentMethod = only.value;
+
+      if (isDeferred(only.value)) {
+        setPayInfo("Metode pembayaran dipilih di halaman berikutnya. Tersedia QRIS, transfer bank, dan e-wallet.");
+        return;
+      }
+
+      el.payInfo.remove();
+      var locked = document.createElement("div");
+      locked.className = "payopt sel locked";
+      if (only.logoUrl) {
+        var lockedLogo = document.createElement("img");
+        lockedLogo.src = only.logoUrl;
+        lockedLogo.alt = "";
+        lockedLogo.loading = "lazy";
+        locked.appendChild(lockedLogo);
+      }
+      var lockedText = document.createElement("span");
+      lockedText.textContent = only.display || only.value;
+      locked.appendChild(lockedText);
+      el.payGroup.appendChild(locked);
+      el.payGroup.removeAttribute("role");
+      return;
+    }
+
+    /* Beberapa metode: tampilkan pilihan. */
+    el.payInfo.remove();
+    list.forEach(function (opt, i) {
+      var id = "pay_" + i;
+      var wrap = document.createElement("label");
+      wrap.className = "payopt";
+      wrap.setAttribute("for", id);
+
+      var radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "paymentMethod";
+      radio.id = id;
+      radio.value = opt.value;
+
+      var text = document.createElement("span");
+      text.textContent = opt.display || opt.value;
+
+      wrap.appendChild(radio);
+      if (opt.logoUrl) {
+        var logo = document.createElement("img");
+        logo.src = opt.logoUrl;
+        logo.alt = "";
+        logo.loading = "lazy";
+        wrap.appendChild(logo);
+      }
+      wrap.appendChild(text);
+
+      if (isDeferred(opt.value)) {
+        var note = document.createElement("small");
+        note.className = "paynote";
+        note.textContent = "Pilih metodenya di halaman berikutnya";
+        wrap.appendChild(note);
+      }
+
+      el.payGroup.appendChild(wrap);
+
+      radio.addEventListener("change", function () {
+        state.paymentMethod = opt.value;
+        clearError(null, "errPay");
+        Array.prototype.forEach.call(el.payGroup.querySelectorAll(".payopt"), function (n) {
+          n.classList.remove("sel");
+        });
+        wrap.classList.add("sel");
+        refreshSummary();
+      });
+    });
+  }
+
+  function refreshSummary() {
+    var scalev = window.Scalev;
+    if (!scalev || !scalev.checkout || !scalev.checkout.estimateSummary || !state.item || !state.paymentMethod) {
+      renderTotals(null);
+      return;
+    }
+    scalev.checkout
+      .estimateSummary({ items: [state.item], paymentMethod: state.paymentMethod })
+      .then(function (summary) { renderTotals(summary); })
+      .catch(function () { renderTotals(null); });
+  }
+
+  function prefill() {
+    var scalev = window.Scalev;
+    if (!scalev || !scalev.prefill || !scalev.prefill.get) return;
+    scalev.prefill.get().then(function (data) {
+      if (!data || !data.customer) return;
+      if (!el.name.value && data.customer.name) el.name.value = data.customer.name;
+      if (!el.phone.value && data.customer.phone) el.phone.value = coreDigits(data.customer.phone);
+      if (!el.email.value && data.customer.email) el.email.value = data.customer.email;
+    }).catch(function () {});
+  }
+
+  function boot() {
+    renderTotals(null);
+
+    var scalev = window.Scalev;
+    if (!scalev || !scalev.data || !scalev.data.get) {
+      state.paymentMethod = "payment_link";
+      return;
+    }
+
+    var data;
+    try { data = scalev.data.get() || {}; } catch (e) { data = {}; }
+
+    /* Kode akses dikirim lewat email otomatis Scalev, jadi pembeli selalu
+       diarahkan ke halaman sukses Sistem Hafal Quran, apa pun setelan afterCheckout di Scalev. */
+    state.afterCheckout = { type: "success_page" };
+
+    state.item = pickItem(data.store);
+    renderPayment(data.store && data.store.paymentMethodOptions);
+    renderTotals(null);
+    refreshSummary();
+    prefill();
+  }
+
+  /* ---------------- redirect after order ---------------- */
+
+  var PAYMENT_INSTRUCTION_METHODS = ["va", "qris", "card", "invoice", "alfamart", "ovo", "dana", "shopeepay", "linkaja", "gopay"];
+
+  function methodForRedirect(method) {
+    if (typeof method !== "string") return method;
+    var lower = method.toLowerCase();
+    if (lower.indexOf("va:") === 0) return "va";
+    if (lower.indexOf("bt:") === 0) return "bank_transfer";
+    return method;
+  }
+
+  function publicOrderUrl(order) {
+    if (order.publicOrderUrl) return order.publicOrderUrl;
+    return new URL("/o/" + order.secretSlug, window.location.origin).toString();
+  }
+
+  function paymentInstructionUrl(order) {
+    if (order.status === "draft") return publicOrderUrl(order);
+    if (order.paymentUrl) return order.paymentUrl;
+    var url = new URL(publicOrderUrl(order));
+    url.pathname = url.pathname.replace(/\/$/, "") + "/success";
+    return url.toString();
+  }
+
+  function whatsappUrl(phone, order) {
+    var clean = String(phone || "").replace(/[^\d]/g, "");
+    return "https://api.whatsapp.com/send/?phone=" + clean + "&text=" + (order.chatMessage || "");
+  }
+
+  function withCurrentQuery(url) {
+    var next = new URL(url, window.location.href);
+    new URLSearchParams(window.location.search).forEach(function (value, key) {
+      next.searchParams.set(key, value);
+    });
+    return next.toString();
+  }
+
+  function navigate(url) {
+    if (window.self !== window.top) {
+      window.parent.postMessage(url, "*");
+      return;
+    }
+    window.location.assign(url);
+  }
+
+  function redirectAfterOrder(order) {
+    var cfg = state.afterCheckout || { type: "success_page" };
+    var method = methodForRedirect(state.paymentMethod || order.paymentMethod);
+    var type = PAYMENT_INSTRUCTION_METHODS.indexOf(method) !== -1 ? "success_page" : cfg.type;
+
+    if (type === "direct_to_whatsapp") {
+      return navigate(order.handlerPhone ? whatsappUrl(order.handlerPhone, order) : publicOrderUrl(order));
+    }
+    if (type === "direct_to_custom_whatsapp") {
+      return navigate(whatsappUrl(cfg.customWhatsappPhone, order));
+    }
+    if (type === "other_page" && cfg.otherPagePath) {
+      return navigate(withCurrentQuery(cfg.otherPagePath));
+    }
+    if (type === "order_page") {
+      return navigate(publicOrderUrl(order));
+    }
+    if (type === "custom_url" && cfg.customUrl) {
+      return navigate(cfg.customUrl);
+    }
+    return navigate(paymentInstructionUrl(order));
+  }
+
+  /* ---------------- submit ---------------- */
+
+  function setBusy(on) {
+    state.submitting = on;
+    el.submitBtn.disabled = on;
+    el.submitBtn.classList.toggle("busy", on);
+    el.submitLabel.textContent = on ? "Memproses pesanan..." : "Lanjut ke Pembayaran";
+  }
+
+  el.form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (state.submitting) return;
+
+    hideAlert();
+    var firstBad = validate();
+
+    if (firstBad) {
+      showAlert("Ada yang belum diisi", "Cek lagi kolom yang ditandai merah di bawah, lalu kirim ulang.");
+      scrollToTopOfForm(firstBad);
+      return;
+    }
+
+    var scalev = window.Scalev;
+    if (!scalev || !scalev.checkout || !scalev.checkout.createOrder) {
+      showAlert("Checkout belum siap", "Halaman belum terhubung ke sistem pembayaran. Muat ulang halaman ini lalu coba lagi.");
+      scrollToTopOfForm(el.alertBox);
+      return;
+    }
+
+    if (!state.item) {
+      showAlert("Produk belum tersedia", "Produk belum bisa dipesan saat ini. Muat ulang halaman atau coba beberapa saat lagi.");
+      scrollToTopOfForm(el.alertBox);
+      return;
+    }
+
+    setBusy(true);
+
+    var payload = {
+      customer: {
+        name: el.name.value.trim(),
+        phone: phoneForSubmit(el.phone.value),
+        email: el.email.value.trim()
+      },
+      items: [state.item],
+      paymentMethod: state.paymentMethod,
+      eventSourceUrl: window.location.href,
+      /* Setelah pembayaran terverifikasi, Scalev arahkan pembeli ke halaman success app. */
+      isPostPaymentRedirectEnabled: true,
+      postPaymentRedirectUrl: POST_PAYMENT_REDIRECT_URL
+    };
+
+    if (scalev.prefill && scalev.prefill.save) {
+      try { scalev.prefill.save({ customer: payload.customer }, { source: "checkout_form" }); } catch (e) {}
+    }
+
+    scalev.checkout.createOrder(payload)
+      .then(function (order) {
+        redirectAfterOrder(order);
+      })
+      .catch(function (error) {
+        setBusy(false);
+        showAlert(
+          "Pesanan gagal dibuat",
+          (error && error.message) ? error.message : "Terjadi kendala saat memproses pesanan. Coba lagi sebentar."
+        );
+        scrollToTopOfForm(el.alertBox);
+      });
+  });
+
+  /* ---------------- lightbox ---------------- */
+
+  var lb = document.getElementById("lightbox");
+  var lbClose = document.getElementById("lbClose");
+  var lastFocus = null;
+
+  function openLb() {
+    lastFocus = document.activeElement;
+    lb.classList.add("on");
+    document.body.style.overflow = "hidden";
+    lbClose.focus();
+  }
+
+  function closeLb() {
+    lb.classList.remove("on");
+    document.body.style.overflow = "";
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+  }
+
+  document.getElementById("zoomBtn").addEventListener("click", openLb);
+  document.getElementById("zoomLink").addEventListener("click", openLb);
+  lbClose.addEventListener("click", closeLb);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && lb.classList.contains("on")) closeLb();
+  });
+
+  /* proteksi gambar: tanpa klik kanan, tanpa drag, tanpa buka tab baru */
+  Array.prototype.forEach.call(document.querySelectorAll("#thumbImg, #lbImg, #zoomBtn"), function (node) {
+    node.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    node.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    node.addEventListener("auxclick", function (e) { e.preventDefault(); });
+    node.addEventListener("mousedown", function (e) { if (e.button === 1) e.preventDefault(); });
+  });
+
+  /* ---------------- go ---------------- */
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body>
+</html>
